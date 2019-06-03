@@ -1,0 +1,27 @@
+{
+  "description": "Interfacing Glade XML to Perl6",
+  "name": "Gnome::Glade3",
+  "version": "0.8.5",
+  "authors": [ "Marcel Timmerman"],
+  "tags": [ "XML", "Glade", "Gtk"],
+
+  "perl": "6",
+  "license": "Artistic-2.0",
+
+  "provides": {
+    "Gnome::Glade3::Engine::PreProcess": "lib/Gnome/Glade3/Engine/PreProcess.pm6",
+    "Gnome::Glade3::Engine::Test": "lib/Gnome/Glade3/Engine/Test.pm6",
+    "Gnome::Glade3::Engine::Work": "lib/Gnome/Glade3/Engine/Work.pm6",
+    "Gnome::Glade3::Engine": "lib/Gnome/Glade3/Engine.pm6",
+
+    "Gnome::Glade3::X": "lib/Gnome/Glade3/X.pm6",
+    "Gnome::Glade3": "lib/Gnome/Glade3.pm6"
+  },
+
+  "source-url": "git://github.com/MARTIMM/gnome-glade3.git",
+
+  "depends": [ "XML::Actions", "Gnome::Gtk3"],
+  "test-depends": [ ],
+  "build-depends": [ ],
+  "resources": [ ]
+}

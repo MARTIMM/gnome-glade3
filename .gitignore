@@ -1,0 +1,11 @@
+.precomp
+*/.precomp
+.directory
+*.html
+*.xml
+*.xsl
+*.log
+Old/*
+~*
+tests/Pencil*
+xt/cc/enum-size
