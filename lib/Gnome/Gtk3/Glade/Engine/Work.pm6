@@ -3,8 +3,8 @@ use NativeCall;
 
 use XML::Actions;
 
-use Gnome::Glade3::Engine;
-use Gnome::Glade3::Engine::Test;
+use Gnome::Gtk3::Glade::Engine;
+use Gnome::Gtk3::Glade::Engine::Test;
 
 use Gnome::GObject::Object;
 use Gnome::GObject::Signal;
@@ -23,7 +23,7 @@ use Gnome::Gtk3::Label;
 use Gnome::Gtk3::Entry;
 
 #-------------------------------------------------------------------------------
-unit class Gnome::Glade3::Engine::Work:auth<github:MARTIMM> is XML::Actions::Work;
+unit class Gnome::Gtk3::Glade::Engine::Work:auth<github:MARTIMM> is XML::Actions::Work;
 
 has Gnome::Gdk3::Screen $!gdk-screen;
 has Gnome::Gtk3::Main $!main;
@@ -46,7 +46,7 @@ submethod BUILD ( ) {
 }
 
 #-----------------------------------------------------------------------------
-method glade-add-engine ( Gnome::Glade3::Engine:D $engine ) {
+method glade-add-engine ( Gnome::Gtk3::Glade::Engine:D $engine ) {
 
 #TODO init in BUILD first then add etc
   $!engines.push($engine);
@@ -60,7 +60,7 @@ multi method glade-add-gui ( Str:D :$ui-file! ) {
 
   if ?$!builder {
     my $error-code = $!builder.gtk_builder_add_from_file( $ui-file, Any);
-    die X::Gnome::Glade3.new(:message("error adding ui")) if $error-code == 0;
+    die X::Gnome::Gtk3::Glade.new(:message("error adding ui")) if $error-code == 0;
   }
 
   else {
@@ -75,7 +75,7 @@ multi method glade-add-gui ( Str:D :$ui-string! ) {
     my $error-code = $!builder.gtk_builder_add_from_string(
       $ui-string, $ui-string.chars, Any
     );
-    die X::Gnome::Glade3.new(:message("error adding ui")) if $error-code == 0;
+    die X::Gnome::Gtk3::Glade.new(:message("error adding ui")) if $error-code == 0;
   }
 
   else {
@@ -102,7 +102,7 @@ method glade-add-css ( Str:D $css-file ) {
 
 #-------------------------------------------------------------------------------
 method glade-run (
-  Gnome::Glade3::Engine::Test :$test-setup,
+  Gnome::Gtk3::Glade::Engine::Test :$test-setup,
   #Str :$toplevel-id
 ) {
 

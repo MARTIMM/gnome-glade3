@@ -4,7 +4,7 @@ use XML::Actions;
 
 #-------------------------------------------------------------------------------
 # Preprocessing class to get ids on all objects
-unit class Gnome::Glade3::Engine::PreProcess:auth<github:MARTIMM>
+unit class Gnome::Gtk3::Glade::Engine::PreProcess:auth<github:MARTIMM>
            is XML::Actions::Work;
 
 

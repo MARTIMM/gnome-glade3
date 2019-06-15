@@ -2,7 +2,7 @@ use v6;
 use Test;
 use NativeCall;
 
-use Gnome::Glade3::Engine;
+use Gnome::Gtk3::Glade::Engine;
 
 use Gnome::GObject::Object;
 use Gnome::Glib::Main;
@@ -12,10 +12,10 @@ use Gnome::Gtk3::Builder;
 use Gnome::Gtk3::TextIter;
 
 #-------------------------------------------------------------------------------
-unit role Gnome::Glade3::Engine::Test:auth<github:MARTIMM>;
-also is Gnome::Glade3::Engine;
+unit role Gnome::Gtk3::Glade::Engine::Test:auth<github:MARTIMM>;
+also is Gnome::Gtk3::Glade::Engine;
 
-# Must be set before by Gnome::Glade3::Engine::Work.glade-run().
+# Must be set before by Gnome::Gtk3::Glade::Engine::Work.glade-run().
 has Gnome::Gtk3::Builder $.builder is rw;
 
 has Gnome::Gtk3::Main $!main;

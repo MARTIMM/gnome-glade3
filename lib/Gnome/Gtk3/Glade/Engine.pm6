@@ -7,7 +7,7 @@ use Gnome::Gtk3::TextBuffer;
 use Gnome::Gtk3::TextView;
 
 #-------------------------------------------------------------------------------
-unit class Gnome::Glade3::Engine:auth<github:MARTIMM>;
+unit class Gnome::Gtk3::Glade::Engine:auth<github:MARTIMM>;
 
 has Gnome::Gtk3::Main $!main;
 has Gnome::Gtk3::TextBuffer $!text-buffer;

@@ -2,20 +2,20 @@ use v6;
 # ==============================================================================
 =begin pod
 
-=TITLE Gnome::Glade3
+=TITLE Gnome::Gtk3::Glade
 
 =SUBTITLE Easy way to use GTK with GUI generator
 
-  unit class Gnome::Glade3;
+  unit class Gnome::Gtk3::Glade;
 
 =head1 Synopsis
 
   use MyGui::MainEngine;
   use MyGui::SecondEngine;
-  use Gnome::Glade3;
+  use Gnome::Gtk3::Glade;
 
   sub MAIN ( Str:D $glade-xml-file ) {
-    my Gnome::Glade3 $gui .= new;
+    my Gnome::Gtk3::Glade $gui .= new;
     $gui.add-gui-file($glade-xml-file);
     $gui.add-engine(MyGui::MainEngine.new);
     $gui.add-engine(MyGui::SecondEngine.new);
@@ -28,17 +28,17 @@ use NativeCall;
 
 use XML::Actions;
 
-use Gnome::Glade3::X;
-use Gnome::Glade3::Engine;
-use Gnome::Glade3::Engine::Test;
-use Gnome::Glade3::Engine::Work;
-use Gnome::Glade3::Engine::PreProcess;
+use Gnome::Gtk3::Glade::X;
+use Gnome::Gtk3::Glade::Engine;
+use Gnome::Gtk3::Glade::Engine::Test;
+use Gnome::Gtk3::Glade::Engine::Work;
+use Gnome::Gtk3::Glade::Engine::PreProcess;
 
 #-------------------------------------------------------------------------------
-unit class Gnome::Glade3:auth<github:MARTIMM>;
+unit class Gnome::Gtk3::Glade:auth<github:MARTIMM>;
 
 has Str $!modified-ui;
-has Gnome::Glade3::Engine::Work $!work;
+has Gnome::Gtk3::Glade::Engine::Work $!work;
 has XML::Actions $!actions;
 
 #-------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ method add-gui-file ( Str:D $ui-file where .IO ~~ :r ) {
 
   # Prepare Gtk Glade work for preprocessing. In this phase all missing
   # ids on objects are generated and written back in the xml elements.
-  my Gnome::Glade3::Engine::PreProcess $pp .= new;
+  my Gnome::Gtk3::Glade::Engine::PreProcess $pp .= new;
   $!actions.process(:actions($pp));
   $!modified-ui = $!actions.result;
 
@@ -80,11 +80,11 @@ method add-gui-file ( Str:D $ui-file where .IO ~~ :r ) {
 =begin pod
 =head2 add-engine
 
-  method add-engine ( Gnome::Glade3::Engine $engine )
+  method add-engine ( Gnome::Gtk3::Glade::Engine $engine )
 
 Add the user object where callback methods are defined.
 =end pod
-method add-engine ( Gnome::Glade3::Engine:D $engine ) {
+method add-engine ( Gnome::Gtk3::Glade::Engine:D $engine ) {
 
   $!work.glade-add-engine($engine);
 }
@@ -112,7 +112,7 @@ method add-css ( Str:D $css-file where .IO ~~ :r ) {
 
 Run the glade design. It will enter the main loop and when interacting with the interface, events will call the callbacks defined in one of the added engines.
 =end pod
-method run ( Gnome::Glade3::Engine::Test :$test-setup ) {
+method run ( Gnome::Gtk3::Glade::Engine::Test :$test-setup ) {
 
   # Process the XML document creating the API to the UI
   $!actions.process(:actions($!work));
