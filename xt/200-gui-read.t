@@ -3,7 +3,7 @@ use v6;
 use Test;
 use NativeCall;
 
-use Gnome::Glade3;
+use Gnome::Gtk3::Glade;
 
 use Gnome::N::X;
 use Gnome::N::N-GObject;
@@ -145,7 +145,7 @@ $file.IO.spurt(Q:q:to/EOXML/);
   EOXML
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-class E is Gnome::Glade3::Engine {
+class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   submethod BUILD ( ) {
@@ -251,8 +251,8 @@ class E is Gnome::Glade3::Engine {
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 subtest 'Action object', {
 
-  my Gnome::Glade3 $gui .= new;
-  isa-ok $gui, Gnome::Glade3, 'type ok';
+  my Gnome::Gtk3::Glade $gui .= new;
+  isa-ok $gui, Gnome::Gtk3::Glade, 'type ok';
   $gui.add-gui-file($file);
   $gui.add-engine(E.new);
   $gui.run;

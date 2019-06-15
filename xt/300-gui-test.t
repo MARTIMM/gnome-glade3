@@ -2,8 +2,8 @@ use v6;
 #use lib '../gtk-v3/lib';
 use Test;
 
-use Gnome::Glade3;
-use Gnome::Glade3::Engine;
+use Gnome::Gtk3::Glade;
+use Gnome::Gtk3::Glade::Engine;
 
 use Gnome::Gtk3::Main;
 use Gnome::Gtk3::Widget;
@@ -137,7 +137,7 @@ $file.IO.spurt(Q:q:to/EOXML/);
   EOXML
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-class E is Gnome::Glade3::Engine {
+class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   method exit-program ( ) {
@@ -169,7 +169,7 @@ class E is Gnome::Glade3::Engine {
 }
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-class T does Gnome::Glade3::Engine::Test {
+class T does Gnome::Gtk3::Glade::Engine::Test {
 
   #-----------------------------------------------------------------------------
   submethod BUILD ( ) {
@@ -267,7 +267,7 @@ class T does Gnome::Glade3::Engine::Test {
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 #subtest 'Action object', {
-  my Gnome::Glade3 $gui .= new;
+  my Gnome::Gtk3::Glade $gui .= new;
   $gui.add-gui-file($file);
   $gui.add-engine(E.new);
   $gui.run(:test-setup(T.new()));

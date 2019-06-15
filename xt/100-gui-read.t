@@ -2,7 +2,7 @@ use v6;
 #use lib '../perl6-gnome-gobject/lib', '../perl6-gnome-gtk3/lib';
 use Test;
 
-use Gnome::Glade3;
+use Gnome::Gtk3::Glade;
 
 #use Gnome::N::X;
 use Gnome::GObject::Object;
@@ -119,7 +119,7 @@ $css-file.IO.spurt(Q:q:to/EOXML/);
   EOXML
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-class E is Gnome::Glade3::Engine {
+class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   method quit-program ( :widget($button), :$target-widget-name ) {
@@ -166,8 +166,8 @@ class E is Gnome::Glade3::Engine {
 subtest 'Action object', {
   my E $engine .= new();
 
-  my Gnome::Glade3 $gui .= new;
-  isa-ok $gui, Gnome::Glade3, 'type ok';
+  my Gnome::Gtk3::Glade $gui .= new;
+  isa-ok $gui, Gnome::Gtk3::Glade, 'type ok';
   $gui.add-gui-file($ui-file);
   $gui.add-css($css-file);
   $gui.add-engine(E.new);
