@@ -1,6 +1,6 @@
 ![gtk logo][logo]
 
-# Gnome::Glade3 - Accessing GTK+ with Glade
+# Gnome::Gtk3::Glade - Accessing GTK+ with Glade
 [![License](http://martimm.github.io/label/License-label.svg)](http://www.perlfoundation.org/artistic_license_2_0)
 
 # Description
@@ -39,11 +39,11 @@ Only the method to handle a click event from the quit button is shown below in t
 
 ```
 use v6;
-use Gnome::Glade3;
-use Gnome::Glade3::Engine;
+use Gnome::Gtk3::Glade;
+use Gnome::Gtk3::Glade::Engine;
 
 unit class MyEngine;
-also is Gnome::Glade3::Engine;
+also is Gnome::Gtk3::Glade::Engine;
 
 # $widget is the activated button after which this method is called. Methods
 # are from Gnome::Gtk3::Button. See documentation in the Gnome::Gtk3 project.
@@ -62,9 +62,9 @@ The rest is a piece of cake.
 ```
 use v6;
 use MyEngine;
-use Gnome::Glade3;
+use Gnome::Gtk3::Glade;
 
-my Gnome::Glade3 $gui .= new;
+my Gnome::Gtk3::Glade $gui .= new;
 $gui.add-gui-file("example.glade");
 $gui.add-engine(MyEngine.new);
 $gui.run;
@@ -72,15 +72,15 @@ $gui.run;
 
 # Documentation
 
-* [Gnome::Glade3][Gnome::Glade3 pdf]
-* Gnome::Glade3::Engine
+* [Gnome::Gtk3::Glade][Gnome::Gtk3::Glade pdf]
+* Gnome::Gtk3::Glade::Engine
 
 ## Miscellaneous
 * [Release notes](https://github.com/MARTIMM/perl6-gnome-glade3/blob/master/doc/CHANGES.md)
 
 # TODO
 
-* [ ] What can we do with the Gnome::Glade3 object after it exits the main loop.
+* [ ] What can we do with the Gnome::Gtk3::Glade object after it exits the main loop.
 * [ ] Documentation.
 
 # Versions of involved software
@@ -89,9 +89,9 @@ $gui.run;
 * Used **glade** version is **>= 3.22**
 * Generated user interface file is for **Gtk >= 3.10**
 
-# Installation of Gnome::Glade3
+# Installation of Gnome::Gtk3::Glade
 
-`zef install Gnome::Glade3`
+`zef install Gnome::Gtk3::Glade`
 
 
 # Author
@@ -107,4 +107,4 @@ Github account name: **MARTIMM**
 [//]: # (Pod documentation rendered with)
 [//]: # (pod-render.pl6 --pdf --g=MARTIMM/perl6-gnome-glade3 lib)
 
-[Gnome::Glade3 pdf]: https://nbviewer.jupyter.org/github/MARTIMM/perl6-gnome-glade3/blob/master/doc/Glade3.pdf
+[Gnome::Gtk3::Glade pdf]: https://nbviewer.jupyter.org/github/MARTIMM/perl6-gnome-glade3/blob/master/doc/Glade3.pdf

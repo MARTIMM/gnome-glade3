@@ -14,7 +14,7 @@ skinparam state {
 
 state "xyz.ui" as gladeFile <<file>>
 state "xyz.pm6" as perlModule <<file>>
-state "Gnome::Glade3.pm6" as perlLibModule <<file>>
+state "Gnome::Gtk3::Glade.pm6" as perlLibModule <<file>>
 
 
 '[*] --> Prepare
@@ -34,11 +34,11 @@ state "Preparation of\ncode and data" as Prepare {
 
 
 state "Perl6 program" as P6CodeFlow {
-  state "Gnome::Glade3" as GTKGlade
-  state "Gnome::Glade3::Engine" as Engine
+  state "Gnome::Gtk3::Glade" as GTKGlade
+  state "Gnome::Gtk3::Glade::Engine" as Engine
 
   '[*] -> Engine
-  perlLibModule --> GTKGlade: "use Gnome::Glade3;"
+  perlLibModule --> GTKGlade: "use Gnome::Gtk3::Glade;"
   gladeFile --> GTKGlade: ":file('xyz.ui')"
   perlModule --> Engine: "use xyz;"
   Engine -> GTKGlade: ":engine($obj)"

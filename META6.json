@@ -1,21 +1,21 @@
 {
   "description": "Interfacing Glade XML to Perl6",
-  "name": "Gnome::Glade3",
+  "name": "Gnome::Gtk3::Glade",
   "version": "0.8.5",
   "authors": [ "Marcel Timmerman"],
-  "tags": [ "XML", "Glade", "Gtk"],
+  "tags": [ "XML", "Glade", "GTK+", "Gtk", "Gtk3"],
 
   "perl": "6",
   "license": "Artistic-2.0",
 
   "provides": {
-    "Gnome::Glade3::Engine::PreProcess": "lib/Gnome/Glade3/Engine/PreProcess.pm6",
-    "Gnome::Glade3::Engine::Test": "lib/Gnome/Glade3/Engine/Test.pm6",
-    "Gnome::Glade3::Engine::Work": "lib/Gnome/Glade3/Engine/Work.pm6",
-    "Gnome::Glade3::Engine": "lib/Gnome/Glade3/Engine.pm6",
+    "Gnome::Gtk3::Glade::Engine::PreProcess": "lib/Gnome/Gtk3/Glade/Engine/PreProcess.pm6",
+    "Gnome::Gtk3::Glade::Engine::Test": "lib/Gnome/Gtk3/Glade/Engine/Test.pm6",
+    "Gnome::Gtk3::Glade::Engine::Work": "lib/Gnome/Gtk3/Glade/Engine/Work.pm6",
+    "Gnome::Gtk3::Glade::Engine": "lib/Gnome/Gtk3/Glade/Engine.pm6",
 
-    "Gnome::Glade3::X": "lib/Gnome/Glade3/X.pm6",
-    "Gnome::Glade3": "lib/Gnome/Glade3.pm6"
+    "Gnome::Gtk3::Glade::X": "lib/Gnome/Gtk3/Glade/X.pm6",
+    "Gnome::Gtk3::Glade": "lib/Gnome/Glade3.pm6"
   },
 
   "source-url": "git://github.com/MARTIMM/gnome-glade3.git",

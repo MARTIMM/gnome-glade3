@@ -1,10 +1,10 @@
 ## Release notes
 
 * 2019-06-01 0.8.5
-  * Renamed project from GTK::Glade into Gnome::Glade3
+  * Renamed project from GTK::Glade into Gnome::Gtk3::Glade
 
 * 2019-04-26 0.8.4
-  * Small changes from GTK::V3
+  * Small changes from Gnome::Gtk3
 
 * 2019-04-22 0.8.3
   * Extended test xt/200-gui-read.t to use device events. This can only be tested by hand because I do not know how to create mouse button presses or generate keyboard input.
@@ -12,16 +12,16 @@
 * 2019-03-11 0.8.2
   * Improve test facility
 * 2019-03-10 0.8.1
-  * Modifications from GTK::V3
+  * Modifications from Gnome::Gtk3
 * 2019-03-06 0.8.0
   * Changing glade interface to handle more engines, css and theme modules.
-  * Added documentation for Gnome::Glade3
+  * Added documentation for Gnome::Gtk3::Glade
 * 2019-02-23 0.7.3
-  * Removed convenience method `glade-get-widget()` because GTK::V3 has :build-id in the widgets new() method which does the same work.
+  * Removed convenience method `glade-get-widget()` because Gnome::Gtk3 has :build-id in the widgets new() method which does the same work.
 * 2019-02-18 0.7.2
   * Bugfixes
 * 2019-02-11 0.7.1
-  * Conversions to use GTK::V3
+  * Conversions to use Gnome::Gtk3
 * 2019-01-24 0.7.0
   * Added a Image module to the native call interface.
 * 2019-01-22 0.6.3
@@ -37,7 +37,7 @@
 * 2019-01-16 0.4.0
   * Added the use of css stylesheets. It will by default get the `GTK_STYLE_PROVIDER_PRIORITY_USER` priority to override everything. There are however classes on widgets which prevent settings of e.g. background-color. That is only possible when the `flat` class is set on the widget. Each widget has its own set of classes which must be looked up from the documents. The `GtkButton`, for example, recognizes `circular` and `flat` amongst others. There is not a way to trap errors when parsing of the css fails.
 * 2019-01-15 0.3.3
-  * The hash of objects is not provided anymore to the callback methods. A convenience method `glade-get-widget( Str $id --> GtkWidget )` is provided in the `Gnome::Glade3::Engine` class.
+  * The hash of objects is not provided anymore to the callback methods. A convenience method `glade-get-widget( Str $id --> GtkWidget )` is provided in the `Gnome::Gtk3::Glade::Engine` class.
 * 2019-01-12 0.3.2
   * Bugfixes
 * 2019-01-07 0.3.1
