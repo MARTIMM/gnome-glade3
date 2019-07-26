@@ -15,7 +15,7 @@
     "Gnome::Gtk3::Glade::Engine": "lib/Gnome/Gtk3/Glade/Engine.pm6",
 
     "Gnome::Gtk3::Glade::X": "lib/Gnome/Gtk3/Glade/X.pm6",
-    "Gnome::Gtk3::Glade": "lib/Gnome/Glade3.pm6"
+    "Gnome::Gtk3::Glade": "lib/Gnome/Gtk3/Glade.pm6"
   },
 
   "source-url": "git://github.com/MARTIMM/gnome-glade3.git",
