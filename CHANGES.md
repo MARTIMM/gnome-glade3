@@ -1,5 +1,9 @@
 ## Release notes
 
+* 2019-07-22 0.8.6
+  * Bugs removed from META config. Also small bugs found in Test module and made some improvements.
+  * Added a load test which creates an empty window and destroys it.
+
 * 2019-06-01 0.8.5
   * Renamed project from GTK::Glade into Gnome::Gtk3::Glade
 
