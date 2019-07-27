@@ -4,12 +4,14 @@ use NativeCall;
 
 use Gnome::Gtk3::Glade::Engine;
 
+use Gnome::N::X;
 use Gnome::GObject::Object;
 use Gnome::Glib::Main;
 use Gnome::Gtk3::Button;
 use Gnome::Gtk3::Main;
 use Gnome::Gtk3::Builder;
 use Gnome::Gtk3::TextIter;
+
 
 #-------------------------------------------------------------------------------
 unit role Gnome::Gtk3::Glade::Engine::Test:auth<github:MARTIMM>;
@@ -39,7 +41,7 @@ method prepare-and-run-tests ( ) {
 }
 
 #-------------------------------------------------------------------------------
-method run-tests ( ) {
+method run-tests ( --> Str ) {
 
   my Int $executed-tests = 0;
 
@@ -61,7 +63,13 @@ method run-tests ( ) {
       }
 
       else {
-        diag "substep: $substep.key() => $substep.value()";
+        if $substep.key() eq 'step-wait' and $ignore-wait {
+          diag "substep: $substep.key() => $substep.value() (ignored)";
+        }
+
+        else {
+          diag "substep: $substep.key() => $substep.value()";
+        }
       }
 
       given $substep.key {
@@ -121,7 +129,7 @@ method run-tests ( ) {
         }
 
         when 'debug' {
-          Gnome::Gtk3::Button.new(:empty).debug(:on($substep.value()));
+          Gnome::N::debug(:on($substep.value));
         }
 
         when 'finish' {
@@ -144,9 +152,11 @@ method run-tests ( ) {
     while $!main.gtk-events-pending() { $!main.iteration-do(False); }
   }
 
-  diag "Done testing";
 
-  return "Nbr steps: {$!steps.elems // 0}, Nbr tests: $executed-tests";
+  diag "Nbr steps: {$!steps.elems // 0}";
+  diag "Nbr executed code blocks: $executed-tests";
+
+  "Done testing"
 }
 
 #-------------------------------------------------------------------------------
