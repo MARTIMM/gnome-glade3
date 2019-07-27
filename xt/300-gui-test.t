@@ -4,6 +4,7 @@ use Test;
 
 use Gnome::Gtk3::Glade;
 use Gnome::Gtk3::Glade::Engine;
+use Gnome::Gtk3::Glade::Engine::Test;
 
 use Gnome::Gtk3::Main;
 use Gnome::Gtk3::Widget;
@@ -17,7 +18,6 @@ diag "\n";
 my $dir = 'xt/x';
 mkdir $dir unless $dir.IO ~~ :e;
 
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 my Str $file = "$dir/a.xml";
 $file.IO.spurt(Q:q:to/EOXML/);
   <?xml version="1.0" encoding="UTF-8"?>

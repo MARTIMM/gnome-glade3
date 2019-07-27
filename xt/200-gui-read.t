@@ -1,14 +1,16 @@
 use v6;
-#use lib '../perl6-gnome-gobject/lib', '../perl6-gnome-gtk3/lib';
+#use lib '../perl6-gnome-gtk3/lib';
+#use lib '../perl6-gnome-gobject/lib';
+
 use Test;
 use NativeCall;
 
 use Gnome::Gtk3::Glade;
+use Gnome::Gtk3::Glade::Engine;
 
-use Gnome::N::X;
 use Gnome::N::N-GObject;
 use Gnome::Gdk3::Types;
-use Gnome::Gdk3::EventTypes;
+use Gnome::Gdk3::Events;
 use Gnome::Gdk3::Keysyms;
 use Gnome::Gtk3::Main;
 use Gnome::Gtk3::Widget;
@@ -16,15 +18,13 @@ use Gnome::Gtk3::Button;
 use Gnome::Gtk3::Label;
 use Gnome::Gtk3::Window;
 
-X::Gnome.debug(:on);
+use Gnome::N::X;
+Gnome::N::debug(:on);
 
 #-------------------------------------------------------------------------------
-diag "\n";
-
 my $dir = 'xt/x';
 mkdir $dir unless $dir.IO ~~ :e;
 
-# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 my Str $file = "$dir/a.xml";
 $file.IO.spurt(Q:q:to/EOXML/);
   <?xml version="1.0" encoding="UTF-8"?>
@@ -150,7 +150,6 @@ class E is Gnome::Gtk3::Glade::Engine {
   #-----------------------------------------------------------------------------
   submethod BUILD ( ) {
     my Gnome::Gtk3::Window $w .= new(:build-id<window>);
-#$w.debug(:on);
 
     # the easy way
     $w.register-signal(
@@ -169,16 +168,15 @@ class E is Gnome::Gtk3::Glade::Engine {
     my Callable $handler;
     $handler =
       -> N-GObject $ignore-w, GdkEvent $e, OpaquePointer $ignore-d {
-        self.mouse-event( :widget($w), :event($e) );
+        self.mouse-event( :widget($w), :handler-arg0($e) );
       };
 
-    $w.connect-object( 'button-press-event', $handler);
+    $w.connect-object-event( 'button-press-event', $handler, OpaquePointer, 0);
   }
 
   #-----------------------------------------------------------------------------
-  method mouse-event ( :widget($window), GdkEvent :$event ) {
+  method mouse-event ( :widget($window), GdkEvent :handler-arg0($event) ) {
 
-    $window.debug(:on);
     my GdkEventType $t = GdkEventType($event.event-any.type);
     note "\nevent type: $t";
     my GdkEventButton $event-button := $event.event-button;
@@ -194,9 +192,10 @@ class E is Gnome::Gtk3::Glade::Engine {
   }
 
   #-----------------------------------------------------------------------------
-  method enter-leave-event ( :widget($window), GdkEvent :$event ) {
+  method enter-leave-event (
+    :widget($window), GdkEvent :handler-arg0($event)
+  ) {
 
-#    $window.debug(:on);
     note "\nevent type: ", GdkEventType($event.event-any.type);
     my GdkEventCrossing $event-crossing := $event.event-crossing;
     note "x, y: ", $event-crossing.x, ', ', $event-crossing.y;
@@ -207,9 +206,10 @@ class E is Gnome::Gtk3::Glade::Engine {
   }
 
   #-----------------------------------------------------------------------------
-  method keyboard-event ( :widget($window), GdkEvent :$event, :$time ) {
+  method keyboard-event (
+    :widget($window), OpaquePointer :handler-arg0($event), :$time
+  ) {
 
-#    $window.debug(:on);
     my GdkEventKey $event-key := $event.event-key;
     note "\nevent type: ", GdkEventType($event-key.type);
     note "state: ", $event-key.state.base(2);
@@ -234,7 +234,6 @@ class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   method copy-text ( :$widget ) {
-#$widget.debug(:on);
 
     my Str $text = self.glade-clear-text('inputTxt');
     self.glade-add-text( 'outputTxt', $text);
@@ -242,7 +241,6 @@ class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   method clear-text ( :$widget ) {
-#$widget.debug(:on);
 
     note self.glade-clear-text('outputTxt');
   }
