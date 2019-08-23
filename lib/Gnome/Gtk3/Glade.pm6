@@ -97,6 +97,7 @@ method add-engine ( Gnome::Gtk3::Glade::Engine:D $engine ) {
 
 Add a css style file, This is a CSS-like input in order to style widgets. Classes and id's are definable in the glade interface designer. A few are reserved. You need to look up the documents for a particular widget to find that out. E.g. the button knows about the C<circular> and C<flat> classes (See also L<gnome developer docs|https://developer.gnome.org/gtk3/stable/GtkButton.html> section CSS nodes).
 =end pod
+
 method add-css ( Str:D $css-file where .IO ~~ :r ) {
 
   # Css can be added only after processing is done. There is a toplevel
@@ -112,6 +113,7 @@ method add-css ( Str:D $css-file where .IO ~~ :r ) {
 
 Run the glade design. It will enter the main loop and when interacting with the interface, events will call the callbacks defined in one of the added engines.
 =end pod
+
 method run ( Gnome::Gtk3::Glade::Engine::Test :$test-setup ) {
 
   # Process the XML document creating the API to the UI
