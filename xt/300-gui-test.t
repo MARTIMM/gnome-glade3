@@ -176,7 +176,7 @@ class T does Gnome::Gtk3::Glade::Engine::Test {
     # Wait for start
     $!steps = [
       :!ignore-wait,
-      :step-wait(1.5),
+      :step-wait(1.1),
 
       # Set text of input widget
       :set-text(
@@ -252,12 +252,13 @@ class T does Gnome::Gtk3::Glade::Engine::Test {
       ),
 #      :!debug,
 
-#      :wait(3.0),
-#      :get-main-level,
-#      :do-test( {
-#          is $!test-value, 0, 'loop level is 0';
-#        }
-#      ),
+      :!ignore-wait,
+#      :wait(1.5),
+      :get-main-level,
+      :do-test( {
+          is $!test-value, 0, 'loop level is 0';
+        }
+      ),
 
       # Stop tests
       :finish,

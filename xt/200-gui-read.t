@@ -19,7 +19,7 @@ use Gnome::Gtk3::Label;
 use Gnome::Gtk3::Window;
 
 use Gnome::N::X;
-Gnome::N::debug(:on);
+Gnome::N::debug(:off);
 
 #-------------------------------------------------------------------------------
 my $dir = 'xt/x';
@@ -207,9 +207,8 @@ class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   method keyboard-event (
-    :widget($window), OpaquePointer :handler-arg0($event), :$time
+    :widget($window), GdkEvent :handler-arg0($event), :$time
   ) {
-
     my GdkEventKey $event-key := $event.event-key;
     note "\nevent type: ", GdkEventType($event-key.type);
     note "state: ", $event-key.state.base(2);
@@ -234,9 +233,11 @@ class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
   method copy-text ( :$widget ) {
+Gnome::N::debug(:on);
 
     my Str $text = self.glade-clear-text('inputTxt');
     self.glade-add-text( 'outputTxt', $text);
+Gnome::N::debug(:off);
   }
 
   #-----------------------------------------------------------------------------
