@@ -11,11 +11,11 @@ use Gnome::GObject::Signal;
 use Gnome::Gdk3::Screen;
 use Gnome::Gtk3::Main;
 use Gnome::Gtk3::Builder;
+use Gnome::Gtk3::StyleProvider;
 use Gnome::Gtk3::CssProvider;
 use Gnome::Gtk3::StyleContext;
 
 # Pick the extremities of modules to get all depending modules.
-use Gnome::Gtk3::ImageMenuItem;
 use Gnome::Gtk3::AboutDialog;
 use Gnome::Gtk3::FileChooserDialog;
 use Gnome::Gtk3::RadioButton;

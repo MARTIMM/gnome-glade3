@@ -19,9 +19,9 @@ method glade-get-text ( Str:D $id --> Str ) {
   $!text-view .= new(:build-id($id));
   $!text-buffer .= new(:widget($!text-view.get-buffer));
 
-  my Gnome::Gtk3::TextIter $start .= new;
+  my Gnome::Gtk3::TextIter $start .= new(:empty);
   $!text-buffer.get-start-iter($start);
-  my Gnome::Gtk3::TextIter $end .= new;
+  my Gnome::Gtk3::TextIter $end .= new(:empty);
   $!text-buffer.get-end-iter($end);
 
   $!text-buffer.get-text( $start, $end)
@@ -41,9 +41,9 @@ method glade-add-text ( Str:D $id, Str:D $text is copy ) {
   $!text-view .= new(:build-id($id));
   $!text-buffer .= new(:widget($!text-view.get-buffer));
 
-  my Gnome::Gtk3::TextIter $start .= new;
+  my Gnome::Gtk3::TextIter $start .= new(:empty);
   $!text-buffer.get-start-iter($start);
-  my Gnome::Gtk3::TextIter $end .= new;
+  my Gnome::Gtk3::TextIter $end .= new(:empty);
   $!text-buffer.get-end-iter($end);
 
   $text = $!text-buffer.get-text( $start, $end, 1) ~ $text;
@@ -57,9 +57,9 @@ method glade-clear-text ( Str:D $id --> Str ) {
   $!text-view .= new(:build-id($id));
   $!text-buffer .= new(:widget($!text-view.get-buffer));
 
-  my Gnome::Gtk3::TextIter $start .= new;
+  my Gnome::Gtk3::TextIter $start .= new(:empty);
   $!text-buffer.get-start-iter($start);
-  my Gnome::Gtk3::TextIter $end .= new;
+  my Gnome::Gtk3::TextIter $end .= new(:empty);
   $!text-buffer.get-end-iter($end);
 
   my Str $text = $!text-buffer.get-text( $start, $end, 1);

@@ -87,9 +87,9 @@ method run-tests ( --> Str ) {
             :widget($widget.get-buffer)
           );
 
-          my Gnome::Gtk3::TextIter $start .= new;
+          my Gnome::Gtk3::TextIter $start .= new(:empty);
           $buffer.get-start-iter($start);
-          my Gnome::Gtk3::TextIter $end .= new;
+          my Gnome::Gtk3::TextIter $end .= new(:empty);
           $buffer.get-end-iter($end);
 
           $!test-value = $buffer.get-text( $start, $end, 1);
