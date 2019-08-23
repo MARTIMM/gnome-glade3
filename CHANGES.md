@@ -1,5 +1,11 @@
 ## Release notes
 
+* 2019-08-23 0.8.7
+  * Bug fixes:
+    * A dependency on removed deprecated code.
+    * Use of an enum from the wrong gtk3 module.
+    * Initialization of TextIter now with :empty.
+
 * 2019-07-22 0.8.6
   * Bugs removed from META config. Also small bugs found in Test module and made some improvements.
   * Added a load test which creates an empty window and destroys it.
