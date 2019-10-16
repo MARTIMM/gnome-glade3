@@ -89,7 +89,10 @@ method glade-add-css ( Str:D $css-file ) {
   return unless ?$css-file and $css-file.IO ~~ :r;
 
 #$!css-provider.debug(:on);
-  $!css-provider.gtk_css_provider_load_from_path( $css-file, Any);
+  my Gnome::Glib::Error $e = $!css-provider.gtk_css_provider_load_from_path(
+    $css-file
+  );
+  die $e.message if $e.error-is-valid;
 
   $!style-context.gtk_style_context_add_provider_for_screen(
     $!gdk-screen, $!css-provider, GTK_STYLE_PROVIDER_PRIORITY_USER
@@ -126,7 +129,7 @@ note "Start loop";
 # Callback methods called from XML::Actions
 #-------------------------------------------------------------------------------
 #`{{}}
-method object ( Array:D $parent-path, Str :$id is copy, Str :$class) {
+method object:start ( Array:D $parent-path, Str :$id is copy, Str :$class) {
 
 #  note "Object $class, id '$id'";
 
@@ -139,7 +142,7 @@ method object ( Array:D $parent-path, Str :$id is copy, Str :$class) {
 # signal element, e.g.
 #   <signal name="clicked" handler="clear-text" swapped="no"/>
 # possible attributes are: name, handler, object, after and swapped
-method signal (
+method signal:start (
   Array:D $parent-path, Str:D :name($signal-name),
   Str:D :handler($handler-name),
   Str :$object, Str :$after, Str :$swapped
@@ -154,8 +157,8 @@ method signal (
 
   for @$!engines -> $engine {
     my $args = ? $object
-              ?? \($engine, $handler-name, $signal-name,
-                   :target-widget-name($object)
+              ?? \( $engine, $handler-name, $signal-name,
+                    :target-widget-name($object)
                   )
               !! \($engine, $handler-name, $signal-name)
               ;
@@ -176,7 +179,7 @@ method signal (
         require ::($class-name);
 #note "P2: ", Gnome::Gtk3::::.keys;
 
-#note ::("Gnome::Gtk3::::$class").Bool;
+#note ::("Gnome::Gtk3::$class").Bool;
         my $gtk-widget = ::($class-name).new(:build-id($id));
 #  note "v3 gtk obj: ", $gtk-widget;
 

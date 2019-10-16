@@ -11,7 +11,7 @@ unit class Gnome::Gtk3::Glade::Engine::PreProcess:auth<github:MARTIMM>
 has Str $!default-id = "gtk-glade-id-0001";
 has $.toplevel-id;
 
-method object ( Array:D $parent-path, Str :$id is copy, Str :$class) {
+method object:start ( Array:D $parent-path, Str :$id is copy, Str :$class) {
 
   # if no id is defined, modify the xml element
   if !? $id {
