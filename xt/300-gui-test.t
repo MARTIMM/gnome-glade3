@@ -12,6 +12,9 @@ use Gnome::Gtk3::TextView;
 use Gnome::Gtk3::Button;
 use Gnome::Gtk3::Label;
 
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
+
 #-------------------------------------------------------------------------------
 diag "\n";
 
@@ -140,7 +143,7 @@ $file.IO.spurt(Q:q:to/EOXML/);
 class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
-  method exit-program ( ) {
+  method exit-program ( --> Int ) {
 #`{{
     diag "quit-program called";
     diag "Widget: " ~ $widget.perl if ?$widget;
@@ -150,21 +153,27 @@ class E is Gnome::Gtk3::Glade::Engine {
 #note "LL 1c: ", gtk_main_level();
     self.glade-main-quit();
 #note "LL 1d: ", gtk_main_level();
+
+    1
   }
 
   #-----------------------------------------------------------------------------
-  method copy-text ( ) {
+  method copy-text ( --> Int ) {
 
 #note "copy text thread: $*THREAD.id()";
     my Str $text = self.glade-clear-text('inputTxt');
     self.glade-add-text( 'outputTxt', $text);
+
+    1
   }
 
   #-----------------------------------------------------------------------------
-  method clear-text ( ) {
+  method clear-text ( --> Int ) {
 
 #note "clear text thread: $*THREAD.id()";
     self.glade-clear-text('outputTxt');
+
+    1
   }
 }
 

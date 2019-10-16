@@ -18,8 +18,8 @@ use Gnome::Gtk3::Button;
 use Gnome::Gtk3::Label;
 use Gnome::Gtk3::Window;
 
-use Gnome::N::X;
-Gnome::N::debug(:off);
+#use Gnome::N::X;
+#Gnome::N::debug(:off);
 
 #-------------------------------------------------------------------------------
 my $dir = 'xt/x';
@@ -168,14 +168,14 @@ class E is Gnome::Gtk3::Glade::Engine {
     my Callable $handler;
     $handler =
       -> N-GObject $ignore-w, GdkEvent $e, OpaquePointer $ignore-d {
-        self.mouse-event( :widget($w), :handler-arg0($e) );
+        self.mouse-event( $e, :widget($w) );
       };
 
-    $w.connect-object-event( 'button-press-event', $handler, OpaquePointer, 0);
+    $w.connect-object( 'button-press-event', $handler);
   }
 
   #-----------------------------------------------------------------------------
-  method mouse-event ( :widget($window), GdkEvent :handler-arg0($event) ) {
+  method mouse-event ( GdkEvent $event, :widget($window) --> Int ) {
 
     my GdkEventType $t = GdkEventType($event.event-any.type);
     note "\nevent type: $t";
@@ -189,12 +189,12 @@ class E is Gnome::Gtk3::Glade::Engine {
     }
 
     note "Button: ", $event-button.button;
+
+    0
   }
 
   #-----------------------------------------------------------------------------
-  method enter-leave-event (
-    :widget($window), GdkEvent :handler-arg0($event)
-  ) {
+  method enter-leave-event ( GdkEvent $event, :widget($window) --> Int ) {
 
     note "\nevent type: ", GdkEventType($event.event-any.type);
     my GdkEventCrossing $event-crossing := $event.event-crossing;
@@ -203,12 +203,12 @@ class E is Gnome::Gtk3::Glade::Engine {
 
     note "Mode: ", GdkCrossingMode($event-crossing.mode);
     note "Detail: ", GdkNotifyType($event-crossing.detail);
+
+    1
   }
 
   #-----------------------------------------------------------------------------
-  method keyboard-event (
-    :widget($window), GdkEvent :handler-arg0($event), :$time
-  ) {
+  method keyboard-event ( GdkEvent $event, :widget($window), :$time --> Int ) {
     my GdkEventKey $event-key := $event.event-key;
     note "\nevent type: ", GdkEventType($event-key.type);
     note "state: ", $event-key.state.base(2);
@@ -223,21 +223,23 @@ class E is Gnome::Gtk3::Glade::Engine {
     note "KP Enter pressed" if $event-key.keyval == GDK_KEY_KP_Enter;
 
     note "hw key: ", $event-key.hardware_keycode;
+
+    0
   }
 
   #-----------------------------------------------------------------------------
-  method exit-program ( ) {
+  method exit-program ( --> Int ) {
 
     self.glade-main-quit();
+
+    1
   }
 
   #-----------------------------------------------------------------------------
   method copy-text ( :$widget ) {
-Gnome::N::debug(:on);
 
     my Str $text = self.glade-clear-text('inputTxt');
     self.glade-add-text( 'outputTxt', $text);
-Gnome::N::debug(:off);
   }
 
   #-----------------------------------------------------------------------------

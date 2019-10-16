@@ -5,14 +5,14 @@ use Test;
 
 use Gnome::Gtk3::Glade;
 
-#use Gnome::N::X;
 use Gnome::GObject::Object;
 use Gnome::Gtk3::Main;
 use Gnome::Gtk3::Widget;
 use Gnome::Gtk3::Button;
 use Gnome::Gtk3::Label;
 
-#X::Gnome.debug(:on);
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
 
 #-------------------------------------------------------------------------------
 diag "\n";
@@ -123,7 +123,7 @@ $css-file.IO.spurt(Q:q:to/EOXML/);
 class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
-  method quit-program ( :widget($button), :$target-widget-name ) {
+  method quit-program ( :widget($button), :$target-widget-name --> Int ) {
     diag "quit-program called";
     diag "Widget: " ~ $button.perl;
     diag "Target name: " ~ $target-widget-name.perl if ?$target-widget-name;
@@ -139,10 +139,12 @@ class E is Gnome::Gtk3::Glade::Engine {
     }
 
     self.glade-main-quit();
+
+    1
   }
 
   #-----------------------------------------------------------------------------
-  method hello-world1 ( :widget($button), :$target-widget-name ) {
+  method hello-world1 ( :widget($button), :$target-widget-name --> Int ) {
 
     is $button.get-label, "Button 1", "Label of button 1 ok";
 
@@ -155,11 +157,15 @@ class E is Gnome::Gtk3::Glade::Engine {
 
     # Change back to keep test ok for next click of the button
     $button.set-name("GtkButton");
+
+    1
   }
 
   #-----------------------------------------------------------------------------
-  method hello-world2 ( :widget($button), :$target-widget-name ) {
+  method hello-world2 ( :widget($button), :$target-widget-name --> Int ) {
     is $button.get-label, "Button 2", "Label of button 2 ok";
+
+    1
   }
 }
 

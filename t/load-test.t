@@ -5,6 +5,10 @@ use Gnome::Gtk3::Glade;
 use Gnome::Gtk3::Glade::Engine;
 use Gnome::Gtk3::Glade::Engine::Test;
 
+use Gnome::N::X;
+#Gnome::N::debug(:on);
+
+
 #use Gnome::Gtk3::Main;
 #my Gnome::Gtk3::Main $m .= new;
 
@@ -31,12 +35,13 @@ $file.IO.spurt(Q:q:to/EOXML/);
 #-------------------------------------------------------------------------------
 class E is Gnome::Gtk3::Glade::Engine {
 
-  submethod BUILD ( ) {
-  }
+  submethod BUILD ( ) { }
 
-  method exit-program ( ) {
+  method exit-program ( --> 1 ) {
     self.glade-main-quit();
 #    $m.gtk-main-quit;
+
+    1
   }
 }
 
@@ -85,6 +90,7 @@ subtest 'ISA test', {
 }
 
 #-------------------------------------------------------------------------------
+#Gnome::N::debug(:on);
 subtest 'Window create and destroy test', {
   $gui.add-gui-file($file);
   $gui.add-engine($engine);
