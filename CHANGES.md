@@ -1,5 +1,8 @@
 ## Release notes
 
+* 2019-10-16 0.8.8
+  * Changes in signal and text processing caused by changes in Gnome::* packages.
+
 * 2019-08-23 0.8.7
   * Bug fixes:
     * A dependency on removed deprecated code.
