@@ -3,6 +3,8 @@ use NativeCall;
 
 use XML::Actions;
 
+use Gnome::N::X;
+
 use Gnome::Gtk3::Glade::Engine;
 use Gnome::Gtk3::Glade::Engine::Test;
 
@@ -150,12 +152,18 @@ method signal:start (
   #TODO bring following code into XML::Actions
   my %object = $parent-path[*-2].attribs;
   my Str $id = %object<id>;
+
+  # classes are like GtkButton and converted to Gnome::Gtk3::Button
   my Str $class = %object<class>;
   $class ~~ s/^ ['Gtk' || 'Gdk'] //;
   my Str $class-name = 'Gnome::Gtk3::' ~ $class;
   my Bool $handler-found = False;
 
   for @$!engines -> $engine {
+    note "Search for $handler-name in $engine.perl() for signal $signal-name on class $class-name" if $Gnome::N::x-debug;
+
+    # if the xml attribute object is found, add it to the named argument
+    # list of the registration.
     my $args = ? $object
               ?? \( $engine, $handler-name, $signal-name,
                     :target-widget-name($object)
@@ -163,8 +171,11 @@ method signal:start (
               !! \($engine, $handler-name, $signal-name)
               ;
 
+    # if class is already loaded, register with found arguments
     if Gnome::Gtk3::{$class}:exists {
       my $gtk-widget = ::($class-name).new(:build-id($id));
+      note "Args: $id, $gtk-widget, $gtk-widget(), ", $args.perl
+        if $Gnome::N::x-debug;
 
       if $gtk-widget.register-signal(|$args) {
         $handler-found = True;
@@ -175,13 +186,12 @@ method signal:start (
     else {
       try {
 #note "require $class-name";
-#      require ::('Gnome::Gtk3::');
         require ::($class-name);
-#note "P2: ", Gnome::Gtk3::::.keys;
 
 #note ::("Gnome::Gtk3::$class").Bool;
         my $gtk-widget = ::($class-name).new(:build-id($id));
-#  note "v3 gtk obj: ", $gtk-widget;
+        note "Args: $id, $gtk-widget, $gtk-widget(), ", $args.perl
+          if $Gnome::N::x-debug;
 
         if $gtk-widget.register-signal(|$args) {
           $handler-found = True;
@@ -191,14 +201,15 @@ method signal:start (
         CATCH {
 #.note;
           default {
-            note "Not able to load module: ", .message;
+#            note "Not able to load module: ", .message;
           }
         }
       }
     }
   }
 
-  note "Handler $handler-name not defined in any engine" unless $handler-found;
+  note "Handler $handler-name not defined in any engine"
+    if !$handler-found and $Gnome::N::x-debug;
 }
 
 #-------------------------------------------------------------------------------

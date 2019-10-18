@@ -14,7 +14,7 @@
   * Added a load test which creates an empty window and destroys it.
 
 * 2019-06-01 0.8.5
-  * Renamed project from GTK::Glade into Gnome::Gtk3::Glade
+  * Renamed project from Gnome::Gtk3::Glade into Gnome::Gtk3::Glade
 
 * 2019-04-26 0.8.4
   * Small changes from Gnome::Gtk3
