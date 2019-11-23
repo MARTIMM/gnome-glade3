@@ -236,16 +236,20 @@ class E is Gnome::Gtk3::Glade::Engine {
   }
 
   #-----------------------------------------------------------------------------
-  method copy-text ( :$widget ) {
+  method copy-text ( :$widget --> Int ) {
 
     my Str $text = self.glade-clear-text('inputTxt');
     self.glade-add-text( 'outputTxt', $text);
+
+    1
   }
 
   #-----------------------------------------------------------------------------
-  method clear-text ( :$widget ) {
+  method clear-text ( :$widget --> Int ) {
 
     note self.glade-clear-text('outputTxt');
+
+    1
   }
 }
 
