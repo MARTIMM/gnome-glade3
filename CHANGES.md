@@ -1,5 +1,8 @@
 ## Release notes
 
+* 2020-01-10 0.8.8.1:
+  * Repo renaming. Perl6 to Raku.
+
 * 2019-10-16 0.8.8
   * Changes in signal and text processing caused by changes in Gnome::* packages.
 

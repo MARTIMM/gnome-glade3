@@ -3,7 +3,7 @@
   "name": "Gnome::Gtk3::Glade",
   "version": "0.8.8",
   "authors": [ "Marcel Timmerman"],
-  "tags": [ "XML", "Glade", "GTK+", "Gtk", "Gtk3"],
+  "tags": [ "XML", "Glade", "GTK+"],
 
   "perl": "6",
   "license": "Artistic-2.0",

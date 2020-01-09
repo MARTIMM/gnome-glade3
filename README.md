@@ -1,6 +1,6 @@
 ![gtk logo][logo]
 
-# Gnome::Gtk3::Glade - Accessing GTK+ with Glade
+# Gnome::Gtk3::Glade - Accessing GTK+ using Glade
 [![License](http://martimm.github.io/label/License-label.svg)](http://www.perlfoundation.org/artistic_license_2_0)
 
 # Description
