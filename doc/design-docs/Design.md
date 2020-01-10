@@ -23,17 +23,17 @@ state "Preparation of\ncode and data" as Prepare {
   Design: Design user interface\nusing glade and\nsave ui description
   Design --> gladeFile: save
 
-  Design -> P6Code: user\naction
-  P6Code --> perlModule: save
-  P6Code: Perl6 Engine class\nwith methods for all\ndefined signals
+  Design -> RakuCode: user\naction
+  RakuCode --> perlModule: save
+  RakuCode: Raku Engine class\nwith methods for all\ndefined signals
 
-  'P6Code -> [*]
+  'RakuCode -> [*]
 }
 
 [*] --> Design: user\naction
 
 
-state "Perl6 program" as P6CodeFlow {
+state "Raku program" as RakuCodeFlow {
   state "Gnome::Gtk3::Glade" as GTKGlade
   state "Gnome::Gtk3::Glade::Engine" as Engine
 
@@ -45,8 +45,8 @@ state "Perl6 program" as P6CodeFlow {
   'GTKGlade -> [*]: Exit main\nloop
 }
 
-Prepare --> P6CodeFlow: Start\nprogram
-'P6CodeFlow --> [*]
+Prepare --> RakuCodeFlow: Start\nprogram
+'RakuCodeFlow --> [*]
 GTKGlade --> [*]: Exit main\nloop
 ```
 

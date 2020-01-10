@@ -76,7 +76,7 @@ $gui.run;
 * Gnome::Gtk3::Glade::Engine
 
 ## Miscellaneous
-* [Release notes](https://github.com/MARTIMM/perl6-gnome-glade3/blob/master/doc/CHANGES.md)
+* [Release notes](https://github.com/MARTIMM/gnome-glade3/blob/master/doc/CHANGES.md)
 
 # TODO
 
@@ -85,9 +85,8 @@ $gui.run;
 
 # Versions of involved software
 
-* Program is tested against the latest version of **perl6** on **rakudo** en **moarvm**.
+* Program is tested against the latest version of **Rakudo** build on **moarvm**.
 * Used **glade** version is **>= 3.22**
-* Generated user interface file is for **Gtk >= 3.10**
 
 # Installation of Gnome::Gtk3::Glade
 
@@ -101,10 +100,7 @@ Github account name: **MARTIMM**
 
 
 <!---- [refs] ----------------------------------------------------------------->
-[release]: https://github.com/MARTIMM/perl6-gnome-glade3/blob/master/doc/CHANGES.md
-[logo]: https://github.com/MARTIMM/perl6-gnome-glade3/blob/master/doc/design-docs/gtk-logo-100.png
+[release]: https://github.com/MARTIMM/gnome-glade3/blob/master/doc/CHANGES.md
+[logo]: https://github.com/MARTIMM/gnome-glade3/blob/master/doc/design-docs/gtk-logo-100.png
 
-[//]: # (Pod documentation rendered with)
-[//]: # (pod-render.pl6 --pdf --g=MARTIMM/perl6-gnome-glade3 lib)
-
-[Gnome::Gtk3::Glade pdf]: https://nbviewer.jupyter.org/github/MARTIMM/perl6-gnome-glade3/blob/master/doc/Glade3.pdf
+[Gnome::Gtk3::Glade pdf]: https://nbviewer.jupyter.org/github/MARTIMM/gnome-glade3/blob/master/doc/Glade3.pdf

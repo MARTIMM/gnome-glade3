@@ -1,11 +1,11 @@
 {
-  "description": "Interfacing Glade XML to Perl6",
+  "description": "Interfacing Glade XML to Raku",
   "name": "Gnome::Gtk3::Glade",
-  "version": "0.8.8",
+  "version": "0.8.8.1",
   "authors": [ "Marcel Timmerman"],
   "tags": [ "XML", "Glade", "GTK+"],
 
-  "perl": "6",
+  "perl": "6.d",
   "license": "Artistic-2.0",
 
   "provides": {
