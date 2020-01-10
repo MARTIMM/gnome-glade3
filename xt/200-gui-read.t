@@ -1,6 +1,6 @@
 use v6;
-#use lib '../perl6-gnome-gtk3/lib';
-#use lib '../perl6-gnome-gobject/lib';
+#use lib '../gnome-gtk3/lib';
+#use lib '../gnome-gobject/lib';
 
 use Test;
 use NativeCall;
