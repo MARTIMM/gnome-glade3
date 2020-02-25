@@ -1,10 +1,13 @@
 ## Release notes
 
+* 2020-02-25 0.8.9:
+  * Changes in some routines to cope with deprecated and removed parts from Gnome::Gtk3.
+
 * 2020-01-10 0.8.8.1:
   * Repo renaming. Perl6 to Raku.
 
 * 2019-10-16 0.8.8
-  * Changes in signal and text processing caused by changes in Gnome::* packages.
+  * Changes in signal and text processing caused by changes in `Gnome::*` packages.
 
 * 2019-08-23 0.8.7
   * Bug fixes:

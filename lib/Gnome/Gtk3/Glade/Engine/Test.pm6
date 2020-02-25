@@ -84,7 +84,7 @@ method run-tests ( --> Str ) {
           my Hash $ss = %(|$substep.value);
           my $widget = self!get-widget($ss);
           my Gnome::Gtk3::TextBuffer $buffer .= new(
-            :widget($widget.get-buffer)
+            :native-object($widget.get-buffer)
           );
 
           my Gnome::Gtk3::TextIter $start = $buffer.get-start-iter;
@@ -99,8 +99,8 @@ method run-tests ( --> Str ) {
           my $widget = self!get-widget($ss);
 
           my $n-buffer = $widget.get-buffer;
-          my Gnome::Gtk3::TextBuffer $buffer .= new(:widget($n-buffer));
-          $buffer.set-text( $text, $text.chars);
+          my Gnome::Gtk3::TextBuffer $buffer .= new(:native-object($n-buffer));
+          $buffer.set-text($text);
           $widget.queue-draw;
         }
 
