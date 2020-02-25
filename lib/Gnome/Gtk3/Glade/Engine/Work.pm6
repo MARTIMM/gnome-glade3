@@ -5,6 +5,8 @@ use XML::Actions;
 
 use Gnome::N::X;
 
+use Gnome::Glib::Error;
+
 use Gnome::Gtk3::Glade::Engine;
 use Gnome::Gtk3::Glade::Engine::Test;
 
@@ -40,9 +42,9 @@ submethod BUILD ( ) {
 
   # initializing GTK is done in Engine because it lives before Work
   $!main .= new;
-  $!gdk-screen .= new(:default);
-  $!css-provider .= new(:empty);
-  $!style-context .= new(:empty);
+  $!gdk-screen .= new;
+  $!css-provider .= new;
+  $!style-context .= new;
 
   $!engines = [];
 }
@@ -61,8 +63,9 @@ method glade-add-engine ( Gnome::Gtk3::Glade::Engine:D $engine ) {
 multi method glade-add-gui ( Str:D :$ui-file! ) {
 
   if ?$!builder {
-    my $error-code = $!builder.gtk_builder_add_from_file( $ui-file, Any);
-    die X::Gnome::Gtk3::Glade.new(:message("error adding ui")) if $error-code == 0;
+    my Gnome::Glib::Error $error = $!builder.add-from-file($ui-file);
+    die X::Gnome::Gtk3::Glade.new(:message($error.message))
+      if $error.is-valid;
   }
 
   else {
@@ -74,10 +77,9 @@ multi method glade-add-gui ( Str:D :$ui-file! ) {
 multi method glade-add-gui ( Str:D :$ui-string! ) {
 
   if ?$!builder {
-    my $error-code = $!builder.gtk_builder_add_from_string(
-      $ui-string, $ui-string.chars, Any
-    );
-    die X::Gnome::Gtk3::Glade.new(:message("error adding ui")) if $error-code == 0;
+    my Gnome::Glib::Error $error = $!builder.add-from-string($ui-string);
+    die X::Gnome::Gtk3::Glade.new(:message($error.message))
+      if $error.is-valid
   }
 
   else {
@@ -94,7 +96,7 @@ method glade-add-css ( Str:D $css-file ) {
   my Gnome::Glib::Error $e = $!css-provider.gtk_css_provider_load_from_path(
     $css-file
   );
-  die $e.message if $e.error-is-valid;
+  die $e.message if $e.is-valid;
 
   $!style-context.gtk_style_context_add_provider_for_screen(
     $!gdk-screen, $!css-provider, GTK_STYLE_PROVIDER_PRIORITY_USER

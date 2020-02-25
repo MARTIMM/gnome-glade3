@@ -15,7 +15,7 @@ use Gnome::Gtk3::Label;
 #Gnome::N::debug(:on);
 
 #-------------------------------------------------------------------------------
-diag "\n";
+diag "\nPress button 1 then button 2 then quit";
 
 my $dir = 'xt/x';
 mkdir $dir unless $dir.IO ~~ :e;
@@ -123,13 +123,13 @@ $css-file.IO.spurt(Q:q:to/EOXML/);
 class E is Gnome::Gtk3::Glade::Engine {
 
   #-----------------------------------------------------------------------------
-  method quit-program ( :widget($button), :$target-widget-name --> Int ) {
+  method quit-program ( :widget($button), :$target-widwidget-get-name --> Int ) {
     diag "quit-program called";
     diag "Widget: " ~ $button.perl;
-    diag "Target name: " ~ $target-widget-name.perl if ?$target-widget-name;
+    diag "Target name: " ~ $target-widwidget-get-name.perl if ?$target-widwidget-get-name;
 
     # in the glade design the name is not set and by default the type name
-    my Str $bn = $button.get-name;
+    my Str $bn = $button.widget-get-name;
     if $bn eq 'GtkButton' {
       is $button.get-label, "Quit", "Label of quit button ok";
     }
@@ -144,25 +144,25 @@ class E is Gnome::Gtk3::Glade::Engine {
   }
 
   #-----------------------------------------------------------------------------
-  method hello-world1 ( :widget($button), :$target-widget-name --> Int ) {
+  method hello-world1 ( :widget($button), :$target-widwidget-get-name --> Int ) {
 
     is $button.get-label, "Button 1", "Label of button 1 ok";
 
-    my Str $bn = $button.get-name;
+    my Str $bn = $button.widget-get-name;
     is $bn, 'GtkButton', "name of button is class name 'GtkButton'";
 
-    $button.set-name("HelloWorld1Button");
-    $bn = $button.get-name;
+    $button.widget-set-name("HelloWorld1Button");
+    $bn = $button.widget-get-name;
     is $bn, 'HelloWorld1Button', "name changed into 'HelloWorld1Button'";
 
     # Change back to keep test ok for next click of the button
-    $button.set-name("GtkButton");
+    $button.widget-set-name("GtkButton");
 
     1
   }
 
   #-----------------------------------------------------------------------------
-  method hello-world2 ( :widget($button), :$target-widget-name --> Int ) {
+  method hello-world2 ( :widget($button), :$target-widwidget-get-name --> Int ) {
     is $button.get-label, "Button 2", "Label of button 2 ok";
 
     1
