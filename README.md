@@ -4,7 +4,7 @@
 [![License](http://martimm.github.io/label/License-label.svg)](http://www.perlfoundation.org/artistic_license_2_0)
 
 # Note
-Due to the latest developments in **Gnome::Gtk3**, this package gets less interesting. The reason for it being the addition of a method `.gtk_builder_connect_signals_full()` in module **Gnome::Gtk3::Builder** which does more or less the same as **Gnome::Gtk3::Glade::Work**.
+Due to the latest developments in **Gnome::Gtk3**, this package gets less interesting. The reason for it being the addition of a method `.gtk_builder_connect_signals_full()` in module **Gnome::Gtk3::Builder** which does more or less the same as **Gnome::Gtk3::Glade::Work** and **Gnome::Gtk3::Glade::Engine**. The only thing interesting left here is the testing module which is still undocumented and unfinished and also planned to go into something like **Gnome::T**.
 
 Here is an example taken from the Builder module;
 
