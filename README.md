@@ -3,6 +3,70 @@
 # Gnome::Gtk3::Glade - Accessing GTK+ using Glade
 [![License](http://martimm.github.io/label/License-label.svg)](http://www.perlfoundation.org/artistic_license_2_0)
 
+# Note
+Due to the latest developments in **Gnome::Gtk3**, this package gets less interesting. The reason for it being the addition of a method `.gtk_builder_connect_signals_full()` in module **Gnome::Gtk3::Builder** which does more or less the same as **Gnome::Gtk3::Glade::Work** and **Gnome::Gtk3::Glade::Engine**. The only thing interesting left here is the testing module which is still undocumented and unfinished and also planned to go into something like **Gnome::T**.
+
+Here is an example taken from the Builder module;
+
+```
+my Str $ui = q:to/EOUI/;
+    <?xml version="1.0" encoding="UTF-8"?>
+    <interface>
+      <requires lib="gtk+" version="3.20"/>
+
+      <object class="GtkWindow" id="top">
+        <property name="title">top window</property>
+        <signal name="destroy" handler="window-quit"/>
+        <child>
+          <object class="GtkButton" id="help">
+            <property name="label">Help</property>
+            <signal name="clicked" handler="button-click"/>
+          </object>
+        </child>
+      </object>
+    </interface>
+    EOUI
+
+# First handler class
+class X {
+  method window-quit ( :$o1, :$o2 --> Int ) {
+    # ... do something with options $o1 and $o2 ...
+
+    Gnome::Gtk3::Main.new.gtk-main-quit;
+
+    1
+  }
+}
+
+# Second handler class
+class Y {
+  method button-click ( :$o3, :$o4 --> Int ) {
+    # ... do something with options $o3 and $o4 ...
+
+    1
+  }
+}
+
+# Load the user interface description
+my Gnome::Gtk3::Builder $builder .= new;
+my Gnome::Gtk3::Builder $builder .= new(:string($ui));
+
+my Gnome::Gtk3::Window $w .= new(:build-id<top>);
+
+# It is possible to devide the works over more than one class
+my X $x .= new;
+my Y $y .= new;
+
+# Create the handlers table
+my Hash $handlers = %(
+  :window-quit( $x, :o1<o1>, :o2<o2>),
+  :button-click( $y, :o3<o3>, :o4<o4>)
+);
+
+# Register all signals
+$builder.connect-signals-full($handlers);
+```
+
 # Description
 With the modules from package `Gnome::Gtk3` you can build a user interface and interact with it. This package however, is meant to load a user interface description saved by an external designer program. The program used is **glade** which saves an **XML** description of the made design.
 
@@ -54,7 +118,7 @@ method quit-program ( :$widget ) {
 
   self.glade-main-quit();
 }
-  ...
+...
 ```
 
 ### The main program
@@ -101,6 +165,6 @@ Github account name: **MARTIMM**
 
 <!---- [refs] ----------------------------------------------------------------->
 [release]: https://github.com/MARTIMM/gnome-glade3/blob/master/doc/CHANGES.md
-[logo]: https://github.com/MARTIMM/gnome-glade3/blob/master/doc/design-docs/gtk-logo-100.png
+[logo]: https://martimm.github.io/gnome-gtk3/content-docs/images/gtk-perl6.png
 
 [Gnome::Gtk3::Glade pdf]: https://nbviewer.jupyter.org/github/MARTIMM/gnome-glade3/blob/master/doc/Glade3.pdf
